@@ -1,3 +1,7 @@
+.brand-color {
+  color: #ff7600;
+}
+
 .login-title {
   color: #060c1c;
 }
@@ -11,9 +15,4 @@
   border-radius: 20px;
   object-fit: cover;
   object-position: left;
-}
-.eye-icon {
-  cursor: pointer;
-  right: 28px;
-  top: 10.5px;
 }
