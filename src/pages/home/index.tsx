@@ -29,6 +29,7 @@ const home: React.FC = () => {
               title="Testing"
               description="Test is working"
               status="pending"
+              date={new Date()}
               onCompleted={handleCompleted}
             ></Task>
           </Col>

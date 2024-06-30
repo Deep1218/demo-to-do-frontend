@@ -7,6 +7,7 @@ interface Task {
   title: string;
   description: string;
   status: number | string;
+  date: any;
   onCompleted: any;
 }
 const Task: React.FC<Task> = ({
@@ -14,6 +15,7 @@ const Task: React.FC<Task> = ({
   title,
   description,
   status,
+  date,
   onCompleted,
 }) => {
   const getDynamicalClass = () => {
@@ -40,6 +42,7 @@ const Task: React.FC<Task> = ({
         <div className="w-75 py-2 position-relative">
           <h6>{title}</h6>
           <p>{description}</p>
+          <span>{date}</span>
           {getStatus()}
         </div>
         <div className="d-flex flex-column align-items-center">
