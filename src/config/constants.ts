@@ -9,4 +9,11 @@ export class APIRoutes {
     DELETE: "/user/",
     LOGOUT: "/user/logout",
   };
+  public static readonly TASKS = {
+    FETCH_ALL: "/task/",
+    DETAIL: "/task/",
+    UPDATE: "/task/",
+    DELETE: "/task/",
+    CREATE: "/task/",
+  };
 }

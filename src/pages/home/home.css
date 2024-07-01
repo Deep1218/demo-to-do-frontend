@@ -1,18 +1,1 @@
-.status-badge {
-  right: 1em;
-  top: 2.5em;
-}
-.actions {
-  cursor: pointer;
-  transition: all 200ms ease;
-}
-.delete:hover {
-  --bs-text-opacity: 1;
-  color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
-  border-color: var(--bs-danger-border-subtle) !important;
-}
-.edit:hover {
-  --bs-text-opacity: 1;
-  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
-  border-color: var(--bs-primary-border-subtle) !important;
-}
+

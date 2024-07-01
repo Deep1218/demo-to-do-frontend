@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap";
-
+import { Badge, Form } from "react-bootstrap";
+import "./index.css";
 interface Task {
   id: string;
   title: string;
@@ -31,34 +31,32 @@ const Task: React.FC<Task> = ({
     );
   };
   return (
-    <>
-      <div
-        className={
-          "align-items-center border d-flex justify-content-evenly rounded-3 " +
-          getDynamicalClass()
-        }
-      >
-        <Form.Check onChange={onCompleted} aria-label="option 1" />
-        <div className="w-75 py-2 position-relative">
-          <h6>{title}</h6>
-          <p>{description}</p>
-          <span>{date}</span>
-          {getStatus()}
-        </div>
-        <div className="d-flex flex-column align-items-center">
-          <FontAwesomeIcon
-            className="border border-2 fa-trash-can my-1 p-2 rounded actions edit"
-            icon={faEdit}
-          />
-          {(status !== "completed" || !status) && (
-            <FontAwesomeIcon
-              className="border border-2 my-1 p-2 rounded actions delete"
-              icon={faTrashAlt}
-            />
-          )}
-        </div>
+    <div
+      className={
+        "align-items-center border d-flex justify-content-evenly rounded-3 shadow shadow-sm " +
+        getDynamicalClass()
+      }
+    >
+      <Form.Check onChange={onCompleted} aria-label="option 1" />
+      <div className="w-75 py-2 position-relative">
+        <h6 className="text-truncate">{title}</h6>
+        <p className="text-truncate">{description}</p>
+        <span className="text-muted small-text">Due Date: {date}</span>
+        {getStatus()}
       </div>
-    </>
+      <div className="d-flex flex-column align-items-center">
+        <FontAwesomeIcon
+          className="border border-2 fa-trash-can my-1 p-2 rounded actions edit"
+          icon={faEdit}
+        />
+        {(status !== "completed" || !status) && (
+          <FontAwesomeIcon
+            className="border border-2 my-1 p-2 rounded actions delete"
+            icon={faTrashAlt}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 
