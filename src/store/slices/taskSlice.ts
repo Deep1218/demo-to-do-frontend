@@ -4,7 +4,7 @@ import { APIRoutes } from "../../config/constants";
 import { DefaultResponse } from "../store";
 
 interface TaskState extends DefaultResponse {
-  task: Record<string, any>;
+  task: any;
   tasks: any[];
 }
 
@@ -124,8 +124,8 @@ const taskSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.success = false;
-      state.task = {};
-      state.tasks = [];
+      // state.task = {};
+      // state.tasks = [];
       state.message = null;
     },
   },

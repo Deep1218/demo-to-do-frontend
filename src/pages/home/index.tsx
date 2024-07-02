@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import Nav from "../../layouts/Nav";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
-import "./home.css";
+// import "./home.css";
 import Task from "../../components/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { fetchTasks } from "../../store/slices/taskSlice";
+import AddEdit from "./addEditTask";
 
 const Home: React.FC<any> = () => {
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch<any>();
   const taskState = useSelector((state: RootState) => state.taskReducer);
   const [completedTasks, setCompletedTasks] = useState<any>([]);
   const [pendingTasks, setPendingTasks] = useState<any>([]);
+
   useEffect(() => {
     dispatch(fetchTasks());
     setCompletedTasks(
@@ -26,6 +29,7 @@ const Home: React.FC<any> = () => {
   const handleCompleted = () => {
     console.log("Clicked on box");
   };
+
   return (
     <>
       <Nav />
@@ -35,11 +39,13 @@ const Home: React.FC<any> = () => {
             <h3>List of tasks</h3>
           </Col>
           <Col>
-            <Button variant="primary">Add Task</Button>
+            <Button variant="primary" onClick={() => setShow(true)}>
+              Add Task
+            </Button>
           </Col>
         </Row>
         <Row>
-          <Col md="6">
+          <Col md="6" style={{ overflowY: "auto" }}>
             <h4>Remaining tasks</h4>
             {pendingTasks.length > 0 ? (
               pendingTasks.map((task: any) => {
@@ -61,7 +67,7 @@ const Home: React.FC<any> = () => {
               <p>No task found</p>
             )}
           </Col>
-          <Col md="6">
+          <Col md="6" style={{ overflowY: "auto" }}>
             <h4>Completed tasks</h4>
             {completedTasks.length > 0 ? (
               completedTasks.map((task: any) => {
@@ -85,7 +91,11 @@ const Home: React.FC<any> = () => {
           </Col>
         </Row>
       </Container>
-      <div></div>
+      <AddEdit
+        showModal={show}
+        hideModal={() => setShow(false)}
+        taskState={taskState}
+      />
     </>
   );
 };

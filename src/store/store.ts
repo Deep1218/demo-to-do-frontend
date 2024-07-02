@@ -29,3 +29,4 @@ export const persistor = persistStore(store);
 
 export default store;
 export type RootState = ReturnType<typeof rootReducer>;
+export type taskState = ReturnType<typeof taskSlice>;
