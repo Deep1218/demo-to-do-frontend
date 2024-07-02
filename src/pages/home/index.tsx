@@ -28,10 +28,10 @@ const Home: React.FC<any> = () => {
 
   useEffect(() => {
     setCompletedTasks(
-      taskState.tasks.filter((task) => task.status === "completed"),
+      taskState.tasks.filter((task) => task.status === "completed")
     );
     setPendingTasks(
-      taskState.tasks.filter((task) => task.status !== "completed"),
+      taskState.tasks.filter((task) => task.status !== "completed")
     );
   }, [taskState.tasks]);
 

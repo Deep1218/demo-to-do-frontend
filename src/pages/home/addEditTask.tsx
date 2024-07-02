@@ -43,7 +43,6 @@ const AddEdit: React.FC<{
     initialValues,
     validationSchema,
     onSubmit: () => {
-      console.log(values);
       const { dueDate } = values;
       const newTask = {
         ...values,
