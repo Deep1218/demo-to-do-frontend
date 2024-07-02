@@ -41,10 +41,6 @@ const Nav: React.FunctionComponent<any> = () => {
         {authState.isLoggedIn && (
           <Navbar.Collapse className="justify-content-end">
             <NavDropdown title={authState.user.name}>
-              <NavDropdown.Item>
-                <FontAwesomeIcon className="me-3" icon={faKey} />
-                Change Password
-              </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => dispatch(logout({ isDelete: true }))}
               >
