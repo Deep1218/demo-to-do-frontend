@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import Nav from "../../layouts/Nav";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
-// import "./home.css";
+import "./home.css";
 import Task from "../../components/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { fetchTasks } from "../../store/slices/taskSlice";
+import {
+  clearTask,
+  deleteTask,
+  fetchTaskById,
+  fetchTasks,
+  updateTask,
+} from "../../store/slices/taskSlice";
 import AddEdit from "./addEditTask";
 
 const Home: React.FC<any> = () => {
@@ -22,38 +28,37 @@ const Home: React.FC<any> = () => {
 
   useEffect(() => {
     setCompletedTasks(
-      taskState.tasks.filter((task) => task.status === "completed")
+      taskState.tasks.filter((task) => task.status === "completed"),
     );
     setPendingTasks(
-      taskState.tasks.filter((task) => task.status !== "completed")
+      taskState.tasks.filter((task) => task.status !== "completed"),
     );
   }, [taskState.tasks]);
 
-  const handleCompleted = () => {
-    console.log("Clicked on box");
+  const handleCompleted = (e: any, id: string) => {
+    console.log(e?.target?.checked, id);
+    if (e?.target?.checked) {
+      dispatch(updateTask({ id, data: { status: "completed" } }));
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteTask(id));
   };
 
   return (
     <>
       <Nav />
-      <Container className="mt-5">
-        <Row>
-          <Col>
-            <h3>List of tasks</h3>
-          </Col>
-          <Col>
-            <Button size="sm" variant="primary" onClick={() => setShow(true)}>
-              Add Task
-            </Button>
-          </Col>
-        </Row>
+      <Container className="border border-2 container my-3 px-5 py-4 rounded-3 shadow-sm task-container">
+        <div className="d-flex justify-content-evenly align-items-center">
+          <h3>Tasks</h3>
+          <Button size="sm" variant="primary" onClick={() => setShow(true)}>
+            Add Task
+          </Button>
+        </div>
         <Row className="mt-4">
-          <Col
-            md="6"
-            className="mt-lg-0 mt-md-4 mt-sm-4 h-100"
-            style={{ overflowY: "scroll" }}
-          >
-            <h4>Remaining tasks</h4>
+          <Col md="6" className="mt-lg-0 mt-4 list">
+            <h4>Pending</h4>
             {pendingTasks.length > 0 ? (
               pendingTasks.map((task: any) => {
                 if (task.status !== "completed") {
@@ -66,6 +71,11 @@ const Home: React.FC<any> = () => {
                       status={task.status}
                       date={task.date}
                       onCompleted={handleCompleted}
+                      onDelete={handleDelete}
+                      onEdit={(id: string) => {
+                        setShow(true);
+                        dispatch(fetchTaskById(id));
+                      }}
                     ></Task>
                   );
                 }
@@ -74,12 +84,8 @@ const Home: React.FC<any> = () => {
               <p>No task found</p>
             )}
           </Col>
-          <Col
-            md="6"
-            className="mt-lg-0 mt-md-4 mt-sm-4"
-            style={{ overflowY: "auto" }}
-          >
-            <h4>Completed tasks</h4>
+          <Col md="6" className="mt-lg-0 mt-4 list">
+            <h4>Completed</h4>
             {completedTasks.length > 0 ? (
               completedTasks.map((task: any) => {
                 if (task.status === "completed") {
@@ -92,6 +98,7 @@ const Home: React.FC<any> = () => {
                       status={task.status}
                       date={task.date}
                       onCompleted={handleCompleted}
+                      onDelete={handleDelete}
                     ></Task>
                   );
                 }
@@ -104,7 +111,12 @@ const Home: React.FC<any> = () => {
       </Container>
       <AddEdit
         showModal={show}
-        hideModal={() => setShow(false)}
+        hideModal={() => {
+          setShow(false);
+          if (taskState.task) {
+            dispatch(clearTask());
+          }
+        }}
         taskState={taskState}
       />
     </>

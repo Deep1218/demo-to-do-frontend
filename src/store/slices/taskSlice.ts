@@ -128,6 +128,9 @@ const taskSlice = createSlice({
       // state.tasks = [];
       state.message = null;
     },
+    clearTask: (state) => {
+      state.task = {}
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -176,7 +179,6 @@ const taskSlice = createSlice({
         state.message = null;
       })
       .addCase(createTask.fulfilled, (state, action: PayloadAction<any>) => {
-        debugger;
         state.loading = false;
         state.success = true;
         state.tasks.push(action.payload);
@@ -233,6 +235,6 @@ const taskSlice = createSlice({
   },
 });
 
-export const { clearTaskState } = taskSlice.actions;
+export const { clearTaskState, clearTask } = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -9,6 +9,8 @@ interface Task {
   status: string;
   date: any;
   onCompleted: any;
+  onEdit?: any;
+  onDelete?: any;
 }
 const Task: React.FC<Task> = ({
   id,
@@ -17,6 +19,8 @@ const Task: React.FC<Task> = ({
   status,
   date,
   onCompleted,
+  onEdit,
+  onDelete,
 }) => {
   const getDynamicalClass = () => {
     switch (status) {
@@ -50,7 +54,10 @@ const Task: React.FC<Task> = ({
       }
     >
       {status !== "completed" && (
-        <Form.Check onChange={onCompleted} aria-label="option 1" />
+        <Form.Check
+          onChange={(e) => onCompleted(e, id)}
+          aria-label="option 1"
+        />
       )}
       <div className="w-75 py-2 position-relative">
         <h6 className="text-truncate">{title}</h6>
@@ -70,11 +77,13 @@ const Task: React.FC<Task> = ({
           <FontAwesomeIcon
             className="border border-2 fa-trash-can my-1 p-2 rounded actions edit"
             icon={faEdit}
+            onClick={() => onEdit(id)}
           />
         )}
         <FontAwesomeIcon
           className="border border-2 my-1 p-2 rounded actions delete"
           icon={faTrashAlt}
+          onClick={() => onDelete(id)}
         />
       </div>
     </div>

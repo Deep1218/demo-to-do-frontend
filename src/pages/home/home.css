@@ -1,0 +1,8 @@
+.list {
+  overflow-y: auto;
+  height: calc(100vh - 30vh);
+}
+.task-container {
+  overflow-y: "auto";
+  height: 90vh;
+}

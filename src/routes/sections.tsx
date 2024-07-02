@@ -10,6 +10,7 @@ export default function Router() {
     { path: "/login", element: <LoginPage /> },
     { path: "/signup", element: <SignupPage /> },
     { path: "/home", element: <HomePage /> },
+    { path: "/*", element: <Navigate to="/login" /> },
   ]);
   return routes;
 }

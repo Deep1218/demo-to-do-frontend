@@ -2,7 +2,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 300px; /* Adjust the width as needed */
+  width: calc(100% - 8em);
 }
 .small-text {
   font-size: 12px;

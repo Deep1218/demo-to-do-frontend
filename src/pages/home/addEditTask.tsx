@@ -7,8 +7,9 @@ import {
   clearTaskState,
   createTask,
   fetchTasks,
+  updateTask,
 } from "../../store/slices/taskSlice";
-import { RootState, taskState } from "../../store/store";
+import { taskState } from "../../store/store";
 import { toast } from "react-toastify";
 
 const initialValues = {
@@ -49,18 +50,25 @@ const AddEdit: React.FC<{
         // date: new Date(dueDate),
         date: dueDate,
       };
-      dispatch(createTask({ data: newTask }));
+      if (taskState.task) {
+        dispatch(updateTask({ id: taskState.task._id, data: newTask }));
+      } else {
+        dispatch(createTask({ data: newTask }));
+      }
     },
   });
 
   useEffect(() => {
     const taskDetails = taskState.task;
-    setValues({
-      title: taskDetails.title,
-      description: taskDetails.description,
-      status: taskDetails.status,
-      dueDate: taskDetails.date,
-    });
+    console.log(taskDetails);
+    if (taskDetails) {
+      setValues({
+        title: taskDetails.title,
+        description: taskDetails.description,
+        status: taskDetails.status,
+        dueDate: taskDetails.date?.split("T")[0],
+      });
+    }
   }, [taskState.task]);
 
   useEffect(() => {
@@ -126,11 +134,11 @@ const AddEdit: React.FC<{
                 <Form.Select
                   name="status"
                   onChange={handleChange}
+                  value={values.status}
                   isInvalid={touched.status && !!errors.status}
                 >
-                  <option value="pending" selected={values.status == "pending"}>
-                    Pending
-                  </option>
+                  <option>Select the status</option>
+                  <option value="pending">Pending</option>
                   <option
                     value="completed"
                     selected={values.status == "completed"}
