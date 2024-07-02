@@ -176,6 +176,7 @@ const taskSlice = createSlice({
         state.message = null;
       })
       .addCase(createTask.fulfilled, (state, action: PayloadAction<any>) => {
+        debugger;
         state.loading = false;
         state.success = true;
         state.tasks.push(action.payload);
